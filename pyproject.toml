@@ -1,0 +1,12 @@
+[project]
+
+name = "src"
+version = "0.0.1"
+description = "A Production Grade MLOPs Project"
+authors = [{name="Divyanshu Rajput", email="dvnhrajput@gmail.com"}]
+
+[tools.setuptools]
+packages = {find = {}}
+
+[tools.setuptools.dynamic]
+dependencies = {file="requirements.txt"}
