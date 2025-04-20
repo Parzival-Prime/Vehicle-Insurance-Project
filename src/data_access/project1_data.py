@@ -8,7 +8,7 @@ from src.constants import DATABASE_NAME
 from src.exception import MyException
 
 
-class Proj1Data:
+class Project1Data:
     """A Class to export MongoDB Records as pandas DataFrame."""
     
     def __init__(self) -> None:
