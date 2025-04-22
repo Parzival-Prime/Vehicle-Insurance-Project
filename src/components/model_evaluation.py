@@ -91,7 +91,7 @@ class ModelEvaluation:
         On Failure  :   Write an exception log and then raise an exception
         """
         try:
-            test_df = pd.read_csv(self.data_ingestion_artifact.test_file_path)
+            test_df = pd.read_csv(self.data_ingestion_artifact.tested_file_path)
             x, y = test_df.drop(TARGET_COLUMN, axis=1), test_df[TARGET_COLUMN]
 
             logging.info("Test data loaded and now transforming it for prediction...")

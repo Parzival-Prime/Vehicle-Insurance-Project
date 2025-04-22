@@ -57,8 +57,12 @@ class DataIngestion:
         """
         
         try:
+            print('|'*20)
             logging.info('Performing train test split')
-            train_set, test_set = train_test_split(dataframe, test_size=self.data_ingestion_config.train_test_split_ratio)
+            if len(dataframe) == 0:
+                raise ValueError("DataFrame is empty. Cannot split an empty dataset.")
+            print(f"Loaded dataframe shape: {dataframe.shape}")
+            train_set, test_set = train_test_split(dataframe, test_size=self.data_ingestion_config.train_test_split_ratio, random_state=42)
             
             logging.info('Exporting train and test file path...')
             dir_path = os.path.dirname(self.data_ingestion_config.training_file_path)
@@ -87,7 +91,7 @@ class DataIngestion:
             self.split_data_as_train_test(dataframe)
             
             data_ingestion_artifact = DataIngestionArtifact(trained_file_path=self.data_ingestion_config.training_file_path,
-            test_file_path=self.data_ingestion_config.testing_file_path)
+            tested_file_path=self.data_ingestion_config.testing_file_path)
             
             logging.info(f"Data ingestion artifact: {data_ingestion_artifact}")
             return data_ingestion_artifact
