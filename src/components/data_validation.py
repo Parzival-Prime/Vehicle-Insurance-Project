@@ -2,7 +2,7 @@ import os
 import sys
 import json
 
-import pandas as ps #type: ignore
+import pandas as pd #type: ignore
 from pandas import DataFrame #type: ignore
 
 from src.exception import MyException
@@ -100,6 +100,7 @@ class DataValidation:
             train_df, test_df = (DataValidation.read_data(file_path=self.data_ingestion_artifact.trained_file_path),
                                  DataValidation.read_data(file_path=self.data_ingestion_artifact.tested_file_path))
             
+            
             status = self.validate_number_of_columns(dataframe=train_df)
             if not status:
                 validation_error_msg += f"Columns are missing in training dataframe. "
@@ -115,13 +116,13 @@ class DataValidation:
             
             # Validationg Columns
 
-            status = self.is_column_exist(df=train_df)
+            status = self.is_column_exists(df=train_df)
             if not status:
                 validation_error_msg += f"Columns are missing in training dataframe. "
             else:
                 logging.info(f"All categorical/int columns present in training dataframe: {status}")
 
-            status = self.is_column_exist(df=test_df)
+            status = self.is_column_exists(df=test_df)
             if not status:
                 validation_error_msg += f"Columns are missing in test dataframe."
             else:

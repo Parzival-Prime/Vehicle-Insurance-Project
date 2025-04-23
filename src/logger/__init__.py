@@ -25,7 +25,7 @@ def configure_logger():
     file_handler.setFormatter(formatter)
     file_handler.setLevel(logging.DEBUG)
     
-    console_handler = logger.StreamHandler()
+    console_handler = logging.StreamHandler()
     console_handler.setFormatter(formatter)
     console_handler.setLevel(logging.INFO)
     
