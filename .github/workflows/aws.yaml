@@ -52,12 +52,17 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
+      - name: Stop and remove old container
+        run: |
+          docker ps -q --filter "ancestor=${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPO }}:latest" | xargs -r docker stop
+          docker ps -a -q --filter "ancestor=${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPO }}:latest" | xargs -r docker rm
+
       - name: Run Docker Image to serve Users
         run: |
-          docker run \
-          -e AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" \
-          -e AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" \
-          -e AWS_DEFAULT_REGION="$AWS_DEFAULT_REGION" \
-          -e MONGODB_URL="$MONGODB_URL" \
+          docker run -d \
+          -e AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}" \
+          -e AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_ACCESS_KEY }}" \
+          -e AWS_DEFAULT_REGION="${{ secrets.AWS_DEFAULT_REGION }}" \
+          -e MONGODB_URL="${{ secrets.MONGODB_URL }}" \
           -p 5000:5000 \
           ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPO }}:latest
