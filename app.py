@@ -1,10 +1,10 @@
-from fastapi import FastAPI, Request
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import Response
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-from starlette.responses import HTMLResponse, RedirectResponse
-from uvicorn import run as app_run
+from fastapi import FastAPI, Request #type: ignore
+from fastapi.middleware.cors import CORSMiddleware #type: ignore
+from fastapi.responses import Response #type: ignore
+from fastapi.staticfiles import StaticFiles #type: ignore
+from fastapi.templating import Jinja2Templates #type: ignore
+from starlette.responses import HTMLResponse, RedirectResponse #type: ignore
+from uvicorn import run as app_run #type: ignore
 
 from typing import Optional
 
@@ -143,3 +143,4 @@ async def predictRouteClient(request: Request):
 # Main entry point to start the FastAPI server
 if __name__ == "__main__":
     app_run(app, host=APP_HOST, port=APP_PORT)
+    
